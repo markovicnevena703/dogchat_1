@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="media">
+    <figure class="media-left">
+        <p class="image is-64x64">
+            <img src="{{url_for('static', filename=post['Picture'])}}">
+        </p>
+    </figure>
+    <div class="media-content">
+        <div class="content">
+            <p>
+                <strong>{{post['Name']}}</strong> <small>@{{post['Username']}}</small>
+                <br>
+                {{post['Text']}}
+                <br>
+            <nav class="level is-mobile">
+                <div class="level-left">
+                    <a class="level-item" aria-label="like">
+                        <span class="icon-text">
+                            <span class="icon is-small">
+                                <i class="fas fa-heart"></i>
+                            </span>
+                            <span>{{post['LikeCount'] | count}}</span>
+                        </span>
+                    </a>
+
+                    <a class="level-item" aria-label="like">
+                        <span class="icon-text">
+                            <span class="icon is-small">
+                                <i class="fas fa-comment"></i>
+                            </span>
+                            <span>{{post['CommentCount'] | count}}</span>
+                        </span>
+                    </a>
+                </div>
+            </nav>
+            </p>
+        </div>
+        {% for comment in post['CommentCount'] %}
+        <article class="media">
+            <figure class="media-left">
+                <p class="image is-48x48">
+                    <img src="{{url_for('static', filename=comment['Picture'])}}">
+                </p>
+            </figure>
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                        <strong>{{comment['Name']}}</strong> <small>@{{comment['Username']}}</small>
+                        <br>
+                        {{comment['Text']}}
+                        <br>
+
+                    </p>
+                </div>
+            </div>
+        </article>
+
+        {% endfor %}
+
+    </div>
+</article>
+
+
+<article class="media">
+    <div class="media-left">
+        <figure class="image is-64x64">
+            <img src="{{url_for('static', filename='melba.png')}}" alt="Image">
+        </figure>
+    </div>
+    <div class="media-content">
+        <div class="content">
+            <p>
+                <strong>Melba</strong> <small>@melba</small>
+                <br>
+            </p>
+            <form>
+                <div class="field">
+                    <div class="control">
+                        <textarea class="textarea" placeholder="New Message" rows="2"></textarea>
+                    </div>
+                    <br>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link">Comment</button>
+                        </div>
+                    </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    {% endblock %}

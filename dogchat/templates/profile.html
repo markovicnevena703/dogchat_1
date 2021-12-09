@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="section is-medium" style="background-color:rgb(142, 205, 235)">
+
+    <h1 class="title">{{user['Name']}}</h1>
+    <h2 class="subtitle">
+      <strong>@{{user['Username']}}</strong><br>
+      <p><small> {{user['Bio']}}</small></p>
+      
+    </h2>
+    
+  </section>
+  <br><br>
+
+  {% for post in posts %}
+  <section>
+  <div class="box">
+  <article class="media">
+      <div class="media-left">
+          <figure class="image is-64x64">
+              <img src="{{url_for('static', filename=post['Picture'])}}" alt="Image">
+          </figure>
+      </div>
+      <div class="media-content">
+          <div class="content">
+              <p>
+                  <strong>{{post['Name']}}</strong> <small>@{{post['Username']}}</small> 
+                  <br>
+                  {{post['Text']}}
+              </p>
+          </div>
+          <nav class="level is-mobile">
+              <div class="level-left">
+                  <a class="level-item" aria-label="like">
+                      <span class="icon-text">
+                          <span class="icon is-small">
+                              <i class="fas fa-heart"></i>
+                          </span>
+                          <span>{{post['LikeCount'] | count}}</span>
+                      </span>
+                  </a>
+  
+                  <a href="{{url_for('comments', post_id=post['PostId'])}}" class="level-item" aria-label="like">
+                      <span class="icon-text">
+                          <span class="icon is-small">
+                              <i class="fas fa-comment"></i>
+                          </span>
+                          <span>{{post['CommentCount'] | count}}</span>
+                      </span>
+                  </a>
+              </div>
+          </nav>
+      </div>
+  </article>
+  </div>
+</section>
+  {% endfor %}  
+
+{% endblock %}
